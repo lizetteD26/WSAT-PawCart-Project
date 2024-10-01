@@ -3200,6 +3200,15 @@ textarea.form-control-lg {
 .dropdown-toggle {
   white-space: nowrap;
 }
+
+.header-page {
+  background-image: url('../images/pet-bg1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: #f8f9fa;
+  padding: 1rem 0;
+}
+
 .dropdown-toggle::after {
   display: inline-block;
   margin-left: 0.255em;
@@ -3318,6 +3327,7 @@ textarea.form-control-lg {
     right: auto;
     left: 0;
   }
+  
   .dropdown-menu-lg-end {
     --bs-position: end;
   }
@@ -10823,4 +10833,15 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+
+header-page {
+  background-image: url('images/pet-bg1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white;
+  text-align: center;
+  padding: 100px 0;
 }
