@@ -3209,6 +3209,14 @@ textarea.form-control-lg {
   padding: 1rem 0;
 }
 
+.hygiene-header-page {
+  background-image: url('../images/hygiene-header_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-color: #f8f9fa;
+  padding: 1rem 0;
+}
+
 .dropdown-toggle::after {
   display: inline-block;
   margin-left: 0.255em;
