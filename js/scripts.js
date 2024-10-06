@@ -5,3 +5,10 @@
 */
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
+
+xHttp = new XMLHttpRequest();
+
+xHttp.onload = function() {
+
+    
+}
