@@ -10,5 +10,4 @@ xHttp = new XMLHttpRequest();
 
 xHttp.onload = function() {
 
-    
 }
