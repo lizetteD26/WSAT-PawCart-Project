@@ -99,9 +99,11 @@
   margin: 0px auto;
   padding: 10px auto;
 }
+
 .bg-gray {
   background-color: #685848;
 }
+
 .search-input {
   flex-grow: 1;
   padding: 5px;
