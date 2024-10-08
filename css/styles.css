@@ -3298,6 +3298,14 @@ textarea.form-control-lg {
   padding: 1rem 0;
 }
 
+.toys-header-page {
+  background-image: url('../images/toys/toys-header_bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: #f8f9fa;
+  padding: 1rem 0;
+}
+
 .dropdown-toggle::after {
   display: inline-block;
   margin-left: 0.255em;
@@ -4373,6 +4381,7 @@ textarea.form-control-lg {
 .card-img-top,
 .card-img-bottom {
   width: 100%;
+  height: 200px;
 }
 
 .card-img,
