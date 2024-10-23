@@ -3282,6 +3282,21 @@ textarea.form-control-lg {
   white-space: nowrap;
 }
 
+.product-container {
+  display: flex;
+  align-items: center; /* Vertically center the items */
+}
+
+.product-image {
+  width: 200px; /* Set your desired fixed width */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 20px; /* Add spacing between image and details */
+}
+
+.product-details {
+  flex: 1; /* Allow the details to take remaining space */
+}
+
 .header-page {
   background-image: url('../images/pet-bg1.jpg');
   background-size: cover;
