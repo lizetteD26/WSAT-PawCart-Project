@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>PawCart - Shopping Cart</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
+        /* Modern and clean styling */
         body {
             font-family: Arial, sans-serif;
+            background-color: #a88989;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            background-color: #f4f4f4;
         }
         nav {
             background-color: #fff;
@@ -45,50 +45,78 @@
             margin-left: 15px;
             cursor: pointer;
         }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            min-width: 160px;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
         .cart-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
             padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .cart-item {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
         }
         .cart-item img {
             width: 80px;
             height: 80px;
             object-fit: cover;
+            border-radius: 5px;
         }
         .cart-details {
             flex: 1;
-            margin-left: 20px;
-        }
-        .cart-details h5 {
-            margin: 0 0 5px;
+            margin-left: 15px;
         }
         .cart-controls {
             display: flex;
             align-items: center;
         }
-        .cart-controls select, .cart-controls span {
-            margin: 0 10px;
+        .cart-controls button {
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            background-color: #f0f0f0;
         }
         .total {
             text-align: right;
-            margin-top: 20px;
             font-size: 18px;
+            margin-top: 20px;
         }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
+        .btn-primary {
             width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -100,6 +128,19 @@
     <div class="search-bar">
         <input type="text" placeholder="Search for products...">
     </div>
+    <div class="dropdown">
+        <span>Shop <i class="bi bi-chevron-down"></i></span>
+        <div class="dropdown-content">
+            <a href="all_products.html">All Products</a>
+            <a href="popular.html">Popular Items</a>
+            <a href="new_arrivals.html">New Arrivals</a>
+            <a href="food.html">Food</a>
+            <a href="hygiene.html">Hygiene</a>
+            <a href="tools.html">Tools</a>
+            <a href="toys.html">Toys</a>
+            <a href="supplements.html">Supplements</a>
+        </div>
+    </div>
     <div class="icons">
         <i class="bi bi-person"></i>
         <i class="bi bi-cart"></i>
@@ -109,32 +150,55 @@
 <!-- Shopping Cart Section -->
 <div class="cart-container">
     <h2>Shopping Cart</h2>
-    <!-- Cart Item -->
-    <div class="cart-item">
-        <img src="C:\Users\Eldreic\OneDrive\Documents\imgs\df.jpg" alt="Dog Food">
-        <div class="cart-details">
-            <h5>Premium Dog Food Special Merrick</h5>
-            <p>Great Plains Red Meat</p>
-        </div>
-        <div class="cart-controls">
-            <button class="qty-btn" id="decrease-btn">-</button>
-            <input type="text" id="quantity" value="1" readonly>
-            <button class="qty-btn" id="increase-btn">+</button>
-        </div>
-    </div>
-
-    <!-- Add more cart items here if needed -->
-
+    <div id="cart-items"></div>
     <div class="total">
-        <strong>Total: PHP 2,500.00</strong>
+        <strong>Total: PHP <span id="total-amount">0.00</span></strong>
     </div>
-    <button class="btn btn-primary">Checkout</button>
+    <button class="btn-primary">Checkout</button>
 </div>
 
-<!-- Footer -->
-<footer>
-    <p>&copy; 2024 PawCart. All rights reserved.</p>
-</footer>
+<script>
+    // Cart functionality
+    let cart = JSON.parse(localStorage.getItem('cart')) || [
+        { id: 1, name: "Premium Dog Food Special Merrick", description: "Great Plains Red Meat", image: "https://via.placeholder.com/80", price: 2500, quantity: 1 }
+    ];
 
+    function displayCart() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        cartItemsContainer.innerHTML = '';
+        
+        cart.forEach((item, index) => {
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = `
+               <img class="card-img-top" src="C:\Users\Eldreic\OneDrive\Documents\imgs\df.jpg" alt="Dog food" />
+                <div class="cart-details">
+                    <h5>${item.name}</h5>
+                    <p>${item.description}</p>
+                </div>
+                <div class="cart-controls">
+                    <button onclick="updateQuantity(${index}, -1)">-</button>
+                    <input type="text" value="${item.quantity}" readonly style="width: 30px; text-align: center; margin: 0 5px;">
+                    <button onclick="updateQuantity(${index}, 1)">+</button>
+                </div>
+                <strong>PHP ${(item.price * item.quantity).toFixed(2)}</strong>
+            `;
+            cartItemsContainer.appendChild(cartItem);
+        });
+
+        const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        document.getElementById('total-amount').innerText = totalAmount.toFixed(2);
+    }
+
+    function updateQuantity(index, change) {
+        cart[index].quantity += change;
+        if (cart[index].quantity <= 0) cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        displayCart();
+    }
+
+    displayCart();
+</script>
 </body>
 </html>
+
